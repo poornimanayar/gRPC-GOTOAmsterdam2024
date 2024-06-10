@@ -1,0 +1,26 @@
+syntax="proto3";
+
+package readings.v1;
+
+import "google/protobuf/timestamp.proto";
+
+service ReadingsClientStreamingService{  
+   
+  rpc SendReadings(stream SendReadingsRequest) returns (SendReadingsResponse);
+
+}
+
+
+message SendReadingsRequest {
+  int64 id=1;
+  string deviceName=2;
+  double temperature =3;
+  google.protobuf.Timestamp updatedOn = 4;
+
+}
+
+message SendReadingsResponse {
+  google.protobuf.Timestamp updatedOn = 1;
+  int32 numberProcessed = 2;
+}
+

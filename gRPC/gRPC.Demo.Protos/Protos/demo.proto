@@ -1,0 +1,30 @@
+﻿
+syntax = "proto3";
+
+
+option csharp_namespace = "gRPC.Demo";
+
+package gRPCDemo;
+
+
+service DemoService {
+  
+	rpc Unary (RequestMessage) returns (ReplyMessage);
+
+	rpc ServerStreamDemo (RequestMessage) returns (stream ReplyMessage);
+
+	rpc ClientStreamDemo (stream RequestMessage) returns (ReplyMessage);	
+
+	rpc BidirectionalStreamDemo (stream RequestMessage) returns (stream ReplyMessage);
+
+	rpc HeaderAndTrailerUnaryDemo(RequestMessage) returns (ReplyMessage);
+}
+
+
+message RequestMessage{
+	string message_value = 1;
+}
+
+message ReplyMessage{
+	string message_value = 1;
+}

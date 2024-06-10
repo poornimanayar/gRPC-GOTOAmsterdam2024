@@ -1,0 +1,30 @@
+﻿@page "/serverstreaming"
+@inject DemoService.DemoServiceClient _demoClient
+@using Grpc.Net.Client;
+<h3>ServerStreaming</h3>
+
+    <select size=20 style="width:100%;">
+        @foreach (var message in replyMessage)
+        {
+            <option>@message.MessageValue</option>
+        }
+    </select>
+
+
+@code {
+    private List<ReplyMessage> replyMessage = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var call = _demoClient.ServerStreamDemo(new RequestMessage { MessageValue = "300" });
+        var token = new System.Threading.CancellationToken();
+
+        while (await call.ResponseStream.MoveNext(token))
+        {
+            replyMessage.Add(call.ResponseStream.Current);
+            await InvokeAsync(StateHasChanged);
+
+        }
+
+    }
+}

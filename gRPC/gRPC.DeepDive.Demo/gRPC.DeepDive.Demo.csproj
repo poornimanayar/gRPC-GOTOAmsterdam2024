@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.63.0" />
+	  <PackageReference Include="Grpc.AspNetCore.Server.Reflection" Version="2.63.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    
+    <Protobuf Include="..\gRPC.Protos\Protos\readings.proto" GrpcServices="Server">
+      <Link>Protos\readings.proto</Link>
+    </Protobuf>
+    
+    <Protobuf Include="..\gRPC.Protos\Protos\readingsBiDirectionalStreaming.proto" GrpcServices="Server">
+      <Link>Protos\readingsBiDirectionalStreaming.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\gRPC.Protos\Protos\readingsClientStreaming.proto" GrpcServices="Server">
+      <Link>Protos\readingsClientStreaming.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\gRPC.Protos\Protos\readingsServerStreaming.proto" GrpcServices="Server">
+      <Link>Protos\readingsServerStreaming.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+  
+</Project>

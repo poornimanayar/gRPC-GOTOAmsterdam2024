@@ -1,0 +1,36 @@
+//syntax of the proto file
+syntax = "proto3";
+
+//namespace for generated code
+option csharp_namespace = "gRPC.BasicService";
+
+//namespace for proto file, good practice, avoids namespace clashes for proto file
+package greet;
+
+// The greeting service definition.
+service Greeter {
+  // Sends a greeting, rpc definition
+  rpc SayHello (HelloRequest) returns (HelloReply);
+  
+  //my demo method
+  rpc MyDemoMethod(DemoMethodRequest) returns (DemoMethodReply);
+}
+
+// The request message containing the user's name.
+message HelloRequest {
+  string name = 1;
+}
+
+// The response message containing the greetings.
+message HelloReply {
+   string message = 1;
+}
+message DemoMethodRequest{
+  int64 id= 1;
+  string name =2;
+}
+
+message DemoMethodReply{
+  string message = 1;
+}
+

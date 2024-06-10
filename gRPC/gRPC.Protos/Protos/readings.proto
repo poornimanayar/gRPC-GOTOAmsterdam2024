@@ -1,0 +1,31 @@
+﻿syntax="proto3";
+
+//namespace for generated client 
+//option csharp_namespace can also be used
+package readings.v1;
+
+import "google/protobuf/timestamp.proto";
+
+//SERVER : generates an abstract class of the same name
+//CLIENT : generates client of the same name
+service ReadingsService{  
+ 
+//SERVER: generates virtual method of the same name
+//CLIENT: generates client stub method of the same name
+  rpc SendReading(SendReadingRequest) returns(SendReadingResponse);  
+
+}
+
+//SERVER & CLIENT - POCO
+message SendReadingRequest {
+  int64 id=1;
+  string deviceName=2;
+  double temperature =3;
+  google.protobuf.Timestamp updateTime = 4;
+}
+
+//SERVER & CLIENT - POCO
+message SendReadingResponse {
+  string message=1;
+}
+

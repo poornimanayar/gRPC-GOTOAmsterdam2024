@@ -1,0 +1,152 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+
+import "google/api/annotations.proto";
+
+option csharp_namespace = "JSONOverHTTP.gRPCApi.Proto";
+
+package toDo;
+
+service ToDo{
+	rpc ListItems(google.protobuf.Empty) returns (ListReply)
+    {
+        option (google.api.http) = {
+            get: "/v1/todos"
+        };
+    }
+
+    rpc GetToDoItem(ToDoItemRequest) returns (ToDoItemReply)
+    {        
+        option (google.api.http) = {
+            get: "/v1/todos/{id}"
+        };
+    }
+
+    rpc CreateToDoItem(CreateToDoItemRequest) returns (ToDoItemReply)
+    {
+        option (google.api.http) = {
+            post: "/v1/todos",
+            body: "*"
+        };
+    };
+	
+    rpc UpdateToDoItem(UpdateToDoItemRequest) returns (ToDoItemReply)
+    {        
+        option (google.api.http) = {
+            put: "/v1/todos/{id}",
+            body: "*"
+        };
+    }
+
+    rpc DeleteToDoItem(DeleteToDoItemRequest) returns (google.protobuf.Empty){
+        
+        option (google.api.http) = {
+        delete: "/v1/todos/{id}"
+        };
+    }
+
+    rpc GetCompletedItems(google.protobuf.Empty) returns (ListReply){
+        
+        option (google.api.http) = {
+            get: "/v1/todos/completeditems",
+        };
+    }
+	
+    rpc GetInCompleteItems(google.protobuf.Empty) returns (ListReply){
+        
+        option (google.api.http) = {
+            get: "/v1/todos/incompleteitems"
+        };
+    }
+
+    rpc GetItemsDueByDate(google.protobuf.Timestamp) returns (ListReply){
+        
+        option (google.api.http) = {
+            get: "/v1/todos/itemsbyduedate"
+        };
+    }
+
+    
+    rpc SendAlert(SendAlertRequest) returns (SendAlertReply){
+        
+        option (google.api.http) = {
+            post: "/v1/todos/sendalert",
+            body:"*"
+        };
+    }  
+    
+   
+     rpc SendArray(Arrayrequest) returns (SendAlertReply){
+        
+        option (google.api.http) = {
+            get: "/v1/todos/sendarray",
+        };
+    }  
+
+    rpc SendArray1(Arrayrequest) returns (SendAlertReply){
+        
+        option (google.api.http) = {
+            get: "/v1/todos/sendarray1",
+        };
+    }  
+    
+
+}
+
+message Arrayrequest{
+	repeated int32 id = 1;
+}
+
+message ListReply{
+	repeated ToDoItemReply toDoItems = 1;
+}
+
+message ToDoItemRequest{
+	int32 id = 1;
+}
+
+message ToDoItemReply{
+	int32 id = 1;
+	string name =2;
+    google.protobuf.Timestamp dueDate=3; 
+    bool complete=4;
+    string notes =5 [json_name="taskNotes"];
+    int32 priority=6;
+    bool sendAlert=7;
+}
+
+message CreateToDoItemRequest{
+	string name =2;
+    google.protobuf.Timestamp dueDate=3;
+    bool complete=4;
+    string notes =5;
+    int32 priority=6;
+    bool sendAlert=7;
+}
+
+
+message UpdateToDoItemRequest{
+	int32 id = 1;
+	string name =2;
+    google.protobuf.Timestamp dueDate=3;
+    bool complete=4;
+    string notes =5;
+    int32 priority=6;
+    bool sendAlert=7;
+}
+
+
+message DeleteToDoItemRequest{
+	int32 id = 1;
+}
+
+message SendAlertRequest{
+	int32 id = 1;
+}
+
+message SendAlertReply{
+	string alertMessage = 1;
+}

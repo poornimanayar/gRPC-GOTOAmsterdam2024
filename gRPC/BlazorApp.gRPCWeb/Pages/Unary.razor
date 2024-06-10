@@ -1,0 +1,21 @@
+﻿@page "/unary"
+@inject DemoService.DemoServiceClient _demoClient
+
+<PageTitle>Home</PageTitle>
+
+@if (replyMessage is not null)
+{
+    <p>@replyMessage.MessageValue</p>
+}
+
+@code {
+    private ReplyMessage replyMessage = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var call = _demoClient.UnaryAsync(new RequestMessage { MessageValue = "300" });
+
+        replyMessage = await call.ResponseAsync;
+
+    }
+}
